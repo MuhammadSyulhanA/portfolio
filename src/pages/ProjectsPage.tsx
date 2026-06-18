@@ -5,7 +5,7 @@ import { projects } from "../data/projects";
 import { SectionHeader } from "../components/ui";
 import type { Project, Platform } from "../data/projects";
 
-const platforms = ["All", "iOS", "Web", "Flutter", "Mobile"];
+const platforms = ["All", "iOS", "Web", "Flutter", "Games", "Python", "Unity"];
 const statusColors: Record<Project["status"], string> = {
   Live: "bg-emerald-400/10 text-emerald-400 border-emerald-400/20",
   "In Development": "bg-amber-400/10 text-amber-400 border-amber-400/20",

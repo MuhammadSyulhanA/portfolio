@@ -7,6 +7,9 @@ export type Platform =
   | "iOS"
   | "Android"
   | "Web"
+  | "Games"
+  | "Python"
+  | "Unity"
   | "Flutter";
 
 export interface Project {
@@ -52,7 +55,7 @@ export const projects: Project[] = [
       "/image/folka/quiz.png",
     ],
     tags: ["Swift", "SpriteKit", "UIKit", "CoreData", "ASO", "Mixpanel"],
-    platforms: ["iOS"],
+    platforms: ["iOS", "Games"],
     status: "Live",
     links: {
       appStore: "https://apps.apple.com/id/app/folka-kids-fairy-tale-book/id6444809668",
@@ -176,12 +179,77 @@ export const projects: Project[] = [
       "/image/ezv/pro.jpg",
     ],
     tags: ["Flutter", "Dart", "REST API", "TestFlight", "App Store Connect"],
-    platforms: ["Flutter"],
+    platforms: ["Flutter", "iOS"],
     status: "Live",
     links: {
       appStore: "https://apps.apple.com/us/app/2-ways/id6469476223",
       live: "https://www.2-ways.com/",
     },
     year: "2023",
+  },
+
+  {
+    id: "snake",
+    title: "Snake Game",
+    shortDesc: "Just regular snake game, get as many apples as possible, you only have 1 life",
+    fullDesc:
+      "How to play: Press the up left right down buttons on the keyboard to move. Winning condition: None, collect as many apples as possible to get the highest score. Losing condition: If you crash into yourself or leave the map, you will die.",
+    coverImage: "/image/games/snake1.png",
+    screenshots: [
+      "/image/games/snake1.png",
+      "/image/games/snake2.png",
+      "/image/games/snake3.png",
+    ],
+    tags: ["Python", "Pygame"],
+    platforms: ["Python", "Games"],
+    status: "Archived",
+    links: {
+      github: "https://github.com/MuhammadSyulhanA",
+    },
+    year: "2026",
+  },
+
+  {
+    id: "astro",
+    title: "Astro Game",
+    shortDesc: "A game similar to Flappy Bird, help the astronaut pass through the pipes to get the highest score.",
+    fullDesc:
+      "How to play: Press the space bar or up key to start. Press the space bar to keep flying. Press esc to quit. Winning condition: None, get the highest score by passing through the pipes. Losing condition: If you collide with the pipe or fall down, then the game is over.",
+    coverImage: "/image/games/astro1.png",
+    screenshots: [
+      "/image/games/astro1.png",
+      "/image/games/astro2.png",
+      "/image/games/astro3.png",
+      "/image/games/astro4.png",
+    ],
+    tags: ["Python", "Pygame"],
+    platforms: ["Python", "Games"],
+    status: "Archived",
+    links: {
+      github: "https://github.com/MuhammadSyulhanA",
+    },
+    year: "2026",
+  },
+
+  {
+    id: "flarpy-blobs",
+    title: "Flarpy Blobs Game",
+    shortDesc: "A game similar to Flappy Bird, helps the bird pass through the pipes to get a score.",
+    fullDesc:
+      "How to play: Press the space bar to keep flying. Winning condition: None, get the highest score by passing through the pipes. Losing condition: If you collide with the pipe, then the game is over, but you can play again.",
+    coverImage: "/image/games/flap1.png",
+    screenshots: [
+      "/image/games/flap1.png",
+      "/image/games/flap2.png",
+      "/image/games/flap3.png",
+      "/image/games/flap4.png",
+    ],
+    tags: ["Unity"],
+    platforms: ["Unity", "Games"],
+    status: "Archived",
+    links: {
+      github: "https://github.com/MuhammadSyulhanA",
+    },
+    year: "2026",
   },
 ];
