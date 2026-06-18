@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { projects } from "../data/projects";
 import { SectionHeader } from "../components/ui";
-import type { Project } from "../data/projects";
+import type { Project, Platform } from "../data/projects";
 
 const platforms = ["All", "iOS", "Web", "Flutter", "Mobile"];
 const statusColors: Record<Project["status"], string> = {
@@ -15,8 +15,11 @@ const statusColors: Record<Project["status"], string> = {
 export default function ProjectsPage() {
   const [filter, setFilter] = useState("All");
 
-  const filtered =
-    filter === "All" ? projects : projects.filter((p) => p.platform === filter);
+  const filtered = filter === "All"
+    ? projects
+    : projects.filter((project) =>
+        project.platforms.includes(filter as Platform)
+      );
 
   return (
     <main className="min-h-screen bg-slate-950 pt-24 pb-20 px-6">
@@ -60,9 +63,17 @@ export default function ProjectsPage() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Platform badge */}
-                <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-xs font-mono bg-slate-950/80 text-slate-300 backdrop-blur-sm border border-slate-700">
-                  {project.platform}
-                </span>
+                <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+                  {project.platforms.map((platform) => (
+                    <span
+                      key={platform}
+                      className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-slate-950/80 text-slate-300 backdrop-blur-sm border border-slate-700"
+                    >
+                      {platform}
+                    </span>
+                  ))}
+                </div>
+                
                 {/* Status badge */}
                 <span
                   className={`absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-xs font-medium border backdrop-blur-sm ${statusColors[project.status]}`}

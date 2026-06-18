@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Github, Smartphone, AppWindow, ChevronRight } from "lucide-react";
 import { projects } from "../data/projects";
+import { useState } from "react";
 
 const statusColors: Record<string, string> = {
   Live: "bg-emerald-400/10 text-emerald-400 border-emerald-400/20",
@@ -12,6 +13,7 @@ export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const project = projects.find((p) => p.id === id);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   if (!project) {
     return (
@@ -52,9 +54,12 @@ export default function ProjectDetailPage() {
 
           {/* Badges on cover */}
           <div className="absolute bottom-4 left-4 flex items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-xs font-mono bg-slate-950/80 text-slate-300 backdrop-blur-sm border border-slate-700">
-              {project.platform}
-            </span>
+            {project.platforms.map((platform) => (
+              <span className="px-3 py-1 rounded-full text-xs font-mono bg-slate-950/80 text-slate-300 backdrop-blur-sm border border-slate-700">
+                {platform}
+              </span>
+            ))}
+            
             <span
               className={`px-3 py-1 rounded-full text-xs font-medium border backdrop-blur-sm ${statusColors[project.status]}`}
             >
@@ -92,6 +97,32 @@ export default function ProjectDetailPage() {
               </div>
             </div>
 
+            {/* Features */}
+            {project.features && project.features.length > 0 && (
+              <div className="mb-10">
+                <p className="text-xs text-sky-400 font-mono tracking-widest uppercase mb-3">
+                  Key Features
+                </p>
+
+                <ul className="space-y-4">
+                  {project.features.map((feature, index) => (
+                    <li
+                      key={index}
+                      className="border border-slate-800 rounded-xl p-4 bg-slate-900/50"
+                    >
+                      <p className="text-slate-100 font-medium mb-1">
+                        {feature.title}
+                      </p>
+
+                      <p className="text-sm text-slate-400 leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Screenshots — horizontal scroll */}
             {project.screenshots.length > 0 && (
               <div className="mb-10">
@@ -102,7 +133,8 @@ export default function ProjectDetailPage() {
                   {project.screenshots.map((src, i) => (
                     <div
                       key={i}
-                      className="flex-shrink-0 w-48 sm:w-64 h-36 sm:h-44 rounded-xl overflow-hidden bg-slate-800 snap-start border border-slate-700 hover:border-sky-400/40 transition-colors"
+                      onClick={() => setSelectedImage(src)}
+                      className="cursor-pointer flex-shrink-0 w-48 sm:w-64 h-36 sm:h-44 rounded-xl overflow-hidden bg-slate-800 snap-start border border-slate-700 hover:border-sky-400/40 transition-colors"
                     >
                       <img
                         src={src}
@@ -211,7 +243,10 @@ export default function ProjectDetailPage() {
                         <p className="text-slate-300 text-sm font-medium truncate group-hover:text-sky-400 transition-colors">
                           {p.title}
                         </p>
-                        <p className="text-slate-600 text-xs">{p.platform} · {p.year}</p>
+                        {p.platforms.map((platform) => (
+                          <p className="text-slate-600 text-xs">{platform} · {p.year}</p>
+                        ))}
+                        
                       </div>
                       <ChevronRight size={14} className="text-slate-700 group-hover:text-sky-400 transition-colors flex-shrink-0" />
                     </Link>
@@ -222,6 +257,32 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </div>
+
+
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="relative max-w-6xl max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-10 right-0 text-white text-xl"
+            >
+              ✕
+            </button>
+
+            <img
+              src={selectedImage}
+              alt="Preview"
+              className="max-w-full max-h-[90vh] rounded-xl"
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
