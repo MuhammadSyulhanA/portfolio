@@ -24,4 +24,12 @@
   .font-mono {
     font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
